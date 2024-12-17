@@ -1,27 +1,7 @@
-/*
- ********************************************************************************
-
-    _____/\\\\\\\\\_____/\\\\\\\\\\\\\\\__/\\\\\\\\\\\__/\\\\\\\\\\\\\\\_
-    ___/\\\\\\\\\\\\\__\///////\\\/////__\/////\\\///__\/\\\///////////__
-    __/\\\/////////\\\_______\/\\\___________\/\\\_____\/\\\_____________
-    _\/\\\_______\/\\\_______\/\\\___________\/\\\_____\/\\\\\\\\\\\_____
-    _\/\\\\\\\\\\\\\\\_______\/\\\___________\/\\\_____\/\\\///////______
-    _\/\\\/////////\\\_______\/\\\___________\/\\\_____\/\\\_____________
-    _\/\\\_______\/\\\_______\/\\\___________\/\\\_____\/\\\_____________
-    _\/\\\_______\/\\\_______\/\\\________/\\\\\\\\\\\_\/\\\_____________
-    _\///________\///________\///________\///////////__\///______________
-
-    Created by Muhammad Atif on 15/08/2024.
-    Portfolio https://atifnoori.web.app.
-    Islo-AI
-
- ********************************************************************************
- */
-
 import 'package:admob_easy/admob_easy.dart';
 import 'package:flutter/material.dart';
 
-///  A widget that displays a native ad from AdMob.
+/// A widget that displays a native ad from AdMob.
 class AdmobEasyNative extends StatefulWidget {
   /// The minimum width of the ad.
   final double minWidth;
@@ -157,34 +137,11 @@ class _AdmobEasyNativeState extends State<AdmobEasyNative> {
       valueListenable: _nativeAdIsLoaded,
       builder: (context, isAdLoaded, child) {
         if (!isAdLoaded || _nativeAd.value == null) {
-          return Container(
+          // Return an empty SizedBox when the ad is not loaded
+          return SizedBox(
             width: widget.minWidth,
             height: widget.minHeight,
-            color: Colors.white,
-            alignment: Alignment.topLeft,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: Color(0xFFE88F1A),
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(12),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 4,
-                ),
-                child: Text(
-                  'Ad',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ); // Return an empty widget if ad is not loaded
+          );
         }
 
         return ConstrainedBox(
