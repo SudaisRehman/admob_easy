@@ -87,7 +87,7 @@ class _AdmobEasyNativeState extends State<AdmobEasyNative> {
     _loadAd();
   }
 
-  / Loads a native ad.
+  /// Loads a native ad.
   void _loadAd() {
     final ad = NativeAd(
       adUnitId: AdmobEasy.instance.nativeAdID,
@@ -117,29 +117,7 @@ class _AdmobEasyNativeState extends State<AdmobEasyNative> {
 
     ad.load();
   }
-// void _loadNativeAd() {
-//     final ad = NativeAd(
-//       adUnitId: AdmobEasy.instance.nativeAdID,
-//       listener: NativeAdListener(
-//         onAdLoaded: (ad) {
-//           setState(() {
-//             _nativeAd = ad as NativeAd;
-//             _isAdLoaded = true; // Ad is loaded
-//           });
-//         },
-//         onAdFailedToLoad: (ad, error) {
-//           ad.dispose();
-//           print('NativeAd failed to load: $error');
-//         },
-//       ),
-//       request: const AdRequest(),
-//       nativeTemplateStyle: NativeTemplateStyle(
-//         templateType: widget.templateType,
-//       ),
-//     );
 
-//     ad.load();
-//   }
   @override
   void initState() {
     super.initState();
@@ -160,19 +138,11 @@ class _AdmobEasyNativeState extends State<AdmobEasyNative> {
       builder: (context, isAdLoaded, child) {
         if (!isAdLoaded || _nativeAd.value == null) {
           // Return an empty SizedBox when the ad is not loaded
-          return Continer(
+          return SizedBox(
             width: widget.minWidth,
             height: widget.minHeight,
-            color: Colors.grey[300],
           );
         }
-    //     if (!_isAdLoaded) {
-    //   return SizedBox(
-    //     width: widget.minWidth,
-    //     height: widget.minHeight,
-    //     child: Center(child: CircularProgressIndicator()),
-    //   );
-    // }
 
         return ConstrainedBox(
           constraints: BoxConstraints(
