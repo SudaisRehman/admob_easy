@@ -138,10 +138,11 @@ class _AdmobEasyNativeState extends State<AdmobEasyNative> {
       builder: (context, isAdLoaded, child) {
         if (!isAdLoaded || _nativeAd.value == null) {
           // Return an empty SizedBox when the ad is not loaded
-          return SizedBox(
-            width: widget.minWidth,
-            height: widget.minHeight,
-          );
+          return Container(
+          color: Colors.grey.shade200, // Set your desired color here
+          width: widget.minWidth,
+          height: widget.minHeight,
+        );
         }
 
         return ConstrainedBox(
