@@ -88,26 +88,49 @@ class _AdmobEasyNativeState extends State<AdmobEasyNative> {
   }
 
   /// Loads a native ad.
-  void _loadAd() {
+  // void _loadAd() {
+  //   final ad = NativeAd(
+  //     adUnitId: AdmobEasy.instance.nativeAdID,
+  //     listener: NativeAdListener(
+  //       onAdLoaded: (ad) {
+  //         AdmobEasyLogger.success('NativeAd loaded.');
+  //         _nativeAd.value = ad as NativeAd;
+  //         _nativeAdIsLoaded.value = true;
+  //       },
+  //       onAdFailedToLoad: (ad, error) {
+  //         AdmobEasyLogger.error('NativeAd failedToLoad: $error');
+  //         ad.dispose();
+  //         _nativeAdIsLoaded.value = false;
+  //       },
+  //       onAdClicked: widget.onAdClicked,
+  //       onAdImpression: widget.onAdImpression,
+  //       onAdClosed: widget.onAdClosed,
+  //       onAdOpened: widget.onAdOpened,
+  //       onAdWillDismissScreen: widget.onAdWillDismissScreen,
+  //       onPaidEvent: widget.onPaidEvent,
+  //     ),
+  //     request: const AdRequest(),
+  //     nativeTemplateStyle: NativeTemplateStyle(
+  //       templateType: widget.templateType,
+  //     ),
+  //   );
+
+  //   ad.load();
+  // }
+void _loadNativeAd() {
     final ad = NativeAd(
       adUnitId: AdmobEasy.instance.nativeAdID,
       listener: NativeAdListener(
         onAdLoaded: (ad) {
-          AdmobEasyLogger.success('NativeAd loaded.');
-          _nativeAd.value = ad as NativeAd;
-          _nativeAdIsLoaded.value = true;
+          setState(() {
+            _nativeAd = ad as NativeAd;
+            _isAdLoaded = true; // Ad is loaded
+          });
         },
         onAdFailedToLoad: (ad, error) {
-          AdmobEasyLogger.error('NativeAd failedToLoad: $error');
           ad.dispose();
-          _nativeAdIsLoaded.value = false;
+          print('NativeAd failed to load: $error');
         },
-        onAdClicked: widget.onAdClicked,
-        onAdImpression: widget.onAdImpression,
-        onAdClosed: widget.onAdClosed,
-        onAdOpened: widget.onAdOpened,
-        onAdWillDismissScreen: widget.onAdWillDismissScreen,
-        onPaidEvent: widget.onPaidEvent,
       ),
       request: const AdRequest(),
       nativeTemplateStyle: NativeTemplateStyle(
@@ -117,7 +140,6 @@ class _AdmobEasyNativeState extends State<AdmobEasyNative> {
 
     ad.load();
   }
-
   @override
   void initState() {
     super.initState();
@@ -136,13 +158,20 @@ class _AdmobEasyNativeState extends State<AdmobEasyNative> {
     return ValueListenableBuilder<bool>(
       valueListenable: _nativeAdIsLoaded,
       builder: (context, isAdLoaded, child) {
-        if (!isAdLoaded || _nativeAd.value == null) {
-          // Return an empty SizedBox when the ad is not loaded
-          return SizedBox(
-            width: widget.minWidth,
-            height: widget.minHeight,
-          );
-        }
+        // if (!isAdLoaded || _nativeAd.value == null) {
+        //   // Return an empty SizedBox when the ad is not loaded
+        //   return SizedBox(
+        //     width: widget.minWidth,
+        //     height: widget.minHeight,
+        //   );
+        // }
+        if (!_isAdLoaded) {
+      return SizedBox(
+        width: widget.minWidth,
+        height: widget.minHeight,
+        child: Center(child: CircularProgressIndicator()),
+      );
+    }
 
         return ConstrainedBox(
           constraints: BoxConstraints(
