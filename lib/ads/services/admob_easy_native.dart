@@ -139,9 +139,13 @@ class _AdmobEasyNativeState extends State<AdmobEasyNative> {
         if (!isAdLoaded || _nativeAd.value == null) {
           // Return an empty SizedBox when the ad is not loaded
           return Container(
-          color: Colors.grey.shade200, // Set your desired color here
-          width: widget.minWidth,
-          height: widget.minHeight,
+// Set your desired color here
+          width: widget.maxWidth,
+          height: widget.maxHeight,
+             decoration: BoxDecoration(
+                          color: Colors.grey.shade200, 
+                  borderRadius: BorderRadius.circular(10),
+                ),
         );
         }
 
